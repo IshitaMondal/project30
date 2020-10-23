@@ -13,6 +13,7 @@ var block16,block17,block18,block19,block20;
 var block21,block22,block23,block24,block25;
 var polygon;
 var slingshot;
+;
 
 function preload(){
   polygonImage = loadImage("polygon.png");
@@ -69,12 +70,15 @@ function setup() {
 
   
   fill("yellow");
-  polygon = Bodies.rectangle(50,200,6,60);
+  var options = {
+    density: 1.5
+  }
+  polygon = Bodies.rectangle(50,200,6,60,options);
   //image("polygonImage",500,200,30,30);
   World.add(world,polygon);
 
-  slingshot = new SlingShot(polygon.body,{x:50,y:200});
-
+  slingshot = new SlingShot(polygon,{x:100,y:150});
+  
 }
 
 function draw() {
@@ -97,6 +101,7 @@ function draw() {
   block9.display();
   block10.display();
   block11.display();
+  block12.display();
   block13.display();
   block14.display();
   block15.display();
@@ -117,10 +122,11 @@ function draw() {
 
   slingshot.display();
 
+
 }
 
 function mouseDragged(){
-  Matter.Body.setPosition(polygon.body, {x: mouseX , y: mouseY});
+  Matter.Body.setPosition(polygon, {x: mouseX , y: mouseY});
 }
 
 
@@ -130,6 +136,6 @@ function mouseReleased(){
 
 function keyPressed(){
   if(keyCode === 32){
-    slingshot.attach(polygon.body);
+    slingshot.attach(polygon);
   }
 }
